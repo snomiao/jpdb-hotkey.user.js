@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         JPDB Hotkeys
 // @namespace    https://docs.scriptcat.org/
-// @version      0.1.0
+// @version      0.1.1
 // @description  try to take over the world!
 // @author       You
-// @match        https://jpdb.io/review
+// @match        https://jpdb.io/review*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=jpdb.io
 // @grant        none
 // ==/UserScript==
@@ -42,7 +42,7 @@ const hotkeyMapper = (map) => (e) =>
     .map(tap(console.log))
     .map(tap(([_, v]) => v()))
     .at(0)
-    && e.stopPropagation() | e.preventDefault() | 1
+  && e.stopPropagation() | e.preventDefault() | 1
 
 const grades = [
   /Nothing|don't know/,
@@ -67,4 +67,5 @@ window.addEventListener("keydown", hotkeyMapper(keymap), {
   signal: g.ac.signal,
 });
 
-if ($$("svg.kanji")[0]) $$clickBtn("Blacklist");
+$$("svg.kanji")[0] && $$clickBtn("Blacklist");
+$$('#show-checkbox-examples')[0].checked === false && $$('label').filter(e => e.textContent.match(/toggle examples.../)).map(e => (e.click(), e))
